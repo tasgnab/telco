@@ -22,25 +22,29 @@ class Po extends MY_Controller {
 		$this->load->view('dashboard/po_new');
 	}
 	public function add(){
-		$data['po_no'] = $this->input->post('po_no');
-		$tmp = new DateTime($this->input->post('po_date'));
-		$data['po_date'] = $tmp->format('Y-m-d');
-		$data['project_name'] = $this->input->post('project_name');
-		$data['customer'] = $this->input->post('customer');
-		$data['area'] = $this->input->post('area');
-		$data['site_code'] = $this->input->post('site_code');
-		$data['site_name'] = $this->input->post('site_name');
-		$data['item'] = $this->input->post('item');
-		//$data['po_date'] = $this->input->post('po_date');
-		$data['unit_price'] = (float) str_replace(",","",$this->input->post('unit_price'));
-
-		$data['quantity'] = (int) $this->input->post('quantity');
-		$data['start_date'] = $this->input->post('start_date');
-		$data['work_order'] = $this->input->post('work_order');
-		$data['po_value'] = (float) $data['unit_price'] * $data['quantity'];
+		if($this->input->post()){
+			$data['po_no'] = $this->input->post('po_no');
+			$tmp = new DateTime($this->input->post('po_date'));
+			$data['po_date'] = $tmp->format('Y-m-d');
+			$data['project_name'] = $this->input->post('project_name');
+			$data['customer'] = $this->input->post('customer');
+			$data['area'] = $this->input->post('area');
+			$data['site_code'] = $this->input->post('site_code');
+			$data['site_name'] = $this->input->post('site_name');
+			$data['item'] = $this->input->post('item');
+			$data['unit_price'] = (float) str_replace(",","",$this->input->post('unit_price'));
+			$data['quantity'] = (int) $this->input->post('quantity');
+			$tmp = new DateTime($this->input->post('start_date'));
+			$data['start_date'] = $tmp->format('Y-m-d');
+			$tmp = new DateTime($this->input->post('end_date'));
+			$data['end_date'] = $tmp->format('Y-m-d');
+			$data['work_order'] = $this->input->post('work_order');
+			$data['po_value'] = (float) $data['unit_price'] * $data['quantity'];
+			
+			$this->load->model('M_Po');
+			$this->M_Po->insertPO($data);
+		}
 		
-		$this->load->model('M_Po');
-		$this->M_Po->insertPO($data);
 		$this->load->view('dashboard/po_new');
 	}
 }

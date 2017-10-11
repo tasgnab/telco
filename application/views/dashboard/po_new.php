@@ -41,7 +41,7 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
-                    <form class="form-horizontal form-label-left" action="<?=base_url();?>po/add" method="POST" novalidate>
+                    <form class="form-horizontal form-label-left" action="" method="POST" novalidate>
 
                       <h3 class="col-md-12 col-sm-12 col-xs-12">Project Info </h3>
                       <div class="row">
