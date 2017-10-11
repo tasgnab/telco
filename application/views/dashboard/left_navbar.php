@@ -9,7 +9,7 @@
             <!-- menu profile quick info -->
             <div class="profile clearfix">
               <div class="profile_pic">
-                <img src="fileStorage/images/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="<?=base_url();?>fileStorage/images/img.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -27,10 +27,10 @@
                 <ul class="nav side-menu">
                   <li><a href="http://localhost/telco/customer"><i class="fa fa-trophy"></i> Customer </a></li>
                   <li><a href="http://localhost/telco/po"><i class="fa fa-download"></i> Purchase Order </a></li>
-                  <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-edit"></i> Purchase Order <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">General Form</a></li>
-                      <li><a href="form_advanced.html">Advanced Components</a></li>
+                      <li><a href="<?=base_url()?>/po">New Purchase Order</a></li>
+                      <li><a href="<?=base_url()?>/po">Advanced Components</a></li>
                       <li><a href="form_validation.html">Form Validation</a></li>
                       <li><a href="form_wizards.html">Form Wizard</a></li>
                       <li><a href="form_upload.html">Form Upload</a></li>
