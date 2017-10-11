@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
--- https://www.phpmyadmin.net/
+-- version 4.5.1
+-- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Oct 10, 2017 at 01:44 PM
--- Server version: 10.1.25-MariaDB
--- PHP Version: 5.6.31
+-- Generation Time: Oct 11, 2017 at 05:52 PM
+-- Server version: 10.1.19-MariaDB
+-- PHP Version: 5.5.38
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -41,14 +39,14 @@ CREATE TABLE `purchase_order` (
   `start_date` date NOT NULL,
   `end_date` date NOT NULL,
   `work_order` varchar(2000) NOT NULL,
-  `unit_price` decimal(10,2) NOT NULL,
+  `unit_price` decimal(20,2) NOT NULL,
   `quantity` smallint(6) NOT NULL,
-  `po_value` decimal(10,2) NOT NULL,
+  `po_value` decimal(20,2) NOT NULL,
   `is_deleted` varchar(1) NOT NULL DEFAULT 'N',
   `created_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `created_by` int(11) NOT NULL,
+  `created_by` varchar(20) NOT NULL DEFAULT 'Test',
   `modified_date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `modified_by` int(11) NOT NULL
+  `modified_by` varchar(20) NOT NULL DEFAULT 'Test'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -69,8 +67,7 @@ ALTER TABLE `purchase_order`
 -- AUTO_INCREMENT for table `purchase_order`
 --
 ALTER TABLE `purchase_order`
-  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT;COMMIT;
-
+  MODIFY `id` int(10) UNSIGNED ZEROFILL NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
