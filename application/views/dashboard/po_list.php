@@ -126,11 +126,13 @@
     <script src="<?=base_url();?>assets/vendors/jszip/dist/jszip.min.js"></script>
     <script src="<?=base_url();?>assets/vendors/pdfmake/build/pdfmake.min.js"></script>
     <script src="<?=base_url();?>assets/vendors/pdfmake/build/vfs_fonts.js"></script>
+    <!-- autoNumeric -->
+    <script src="<?=base_url();?>assets/vendors/jquery.formatCurrency/jquery.formatCurrency.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?=base_url();?>assets/build/js/custom.min.js"></script>
     <script type="text/javascript">
       $(document).ready(function(){
-        $('.po_value').number( true, 2 );
+        $('.po_value').formatCurrency({ roundToDecimalPlace: 2, symbol: 'Rp.' });
       });
     
     </script>
