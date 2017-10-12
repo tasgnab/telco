@@ -43,6 +43,7 @@ class Po extends MY_Controller {
 			
 			$this->load->model('M_Po');
 			$this->M_Po->insertPO($data);
+			$this->session->set_flashdata('message','New Purchase Order Inserted');
 		}
 		
 		$this->load->view('dashboard/po_new');

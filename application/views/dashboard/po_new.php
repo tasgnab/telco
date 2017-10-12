@@ -41,6 +41,14 @@
                     <div class="clearfix"></div>
                   </div>
                   <div class="x_content">
+                    <?php if(!is_null($this->session->flashdata('message'))): ?>
+                      <div class="alert alert-success alert-dismissible" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                        <strong> <?=$this->session->flashdata('message');?> </strong>
+                      </div>
+                    <?php endif; ?>
                     <form class="form-horizontal form-label-left" action="" method="POST" novalidate>
 
                       <h3 class="col-md-12 col-sm-12 col-xs-12">Project Info </h3>
