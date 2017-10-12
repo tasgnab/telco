@@ -48,4 +48,10 @@ class Po extends MY_Controller {
 		
 		$this->load->view('dashboard/po_new');
 	}
+
+	public function list_po(){
+		$this->load->model('M_Po');
+		$data['polist'] = $this->M_Po->allPO();
+		$this->load->view('dashboard/po_list',$data);
+	}
 }
