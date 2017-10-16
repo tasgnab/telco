@@ -54,4 +54,34 @@ class Po extends MY_Controller {
 		$data['polist'] = $this->M_Po->allPO();
 		$this->load->view('dashboard/po_list',$data);
 	}
+
+	public function search_po(){
+		if($this->input->post()){
+			$data['po_no'] = $this->input->post('po_no');
+			$tmp = $this->input->post('po_date');
+			$po_date = explode('-',$tmp);
+			$po_date_min = trim($po_date[0]);
+			$po_date_max = trim($po_date[1]);
+			$data['po_date'] = $tmp->format('Y-m-d');
+			$data['project_name'] = $this->input->post('project_name');
+			$data['customer'] = $this->input->post('customer');
+			$data['area'] = $this->input->post('area');
+			$data['site_code'] = $this->input->post('site_code');
+			$data['site_name'] = $this->input->post('site_name');
+			$data['item'] = $this->input->post('item');
+			$data['unit_price'] = (float) str_replace(",","",$this->input->post('unit_price'));
+			$data['quantity'] = (int) $this->input->post('quantity');
+			$tmp = new DateTime($this->input->post('start_date'));
+			$data['start_date'] = $tmp->format('Y-m-d');
+			$tmp = new DateTime($this->input->post('end_date'));
+			$data['end_date'] = $tmp->format('Y-m-d');
+			$data['work_order'] = $this->input->post('work_order');
+			$data['po_value'] = (float) $data['unit_price'] * $data['quantity'];
+			
+			$this->load->model('M_Po');
+			$this->M_Po->insertPO($data);
+			$this->session->set_flashdata('message','New Purchase Order Inserted');
+		}
+		$this->load->view('dashboard/po_search');
+	}
 }

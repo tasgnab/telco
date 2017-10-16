@@ -26,12 +26,11 @@
                 <h3>General</h3>
                 <ul class="nav side-menu">
                   <li><a href="http://localhost/telco/customer"><i class="fa fa-trophy"></i> Customer </a></li>
-                  <li><a href="http://localhost/telco/po"><i class="fa fa-download"></i> Purchase Order </a></li>
                   <li><a><i class="fa fa-edit"></i> Purchase Order <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="<?=base_url()?>po/add">New Purchase Order</a></li>
                       <li><a href="<?=base_url()?>po/list_po">Purchase Order List</a></li>
-                      <li><a href="form_validation.html">Form Validation</a></li>
+                      <li><a href="<?=base_url()?>po/search_po">Search PO</a></li>
                       <li><a href="form_wizards.html">Form Wizard</a></li>
                       <li><a href="form_upload.html">Form Upload</a></li>
                       <li><a href="form_buttons.html">Form Buttons</a></li>
