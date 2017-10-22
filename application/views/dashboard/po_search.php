@@ -50,16 +50,21 @@
                       </div>
                     <?php endif; ?>
                     <form class="form-horizontal form-label-left" action="" method="POST" novalidate>
-
+                      <div class="row">
+                        <div class="item col-xs-offset-1 col-md-3 col-sm-3 col-xs-12">
+                          <label class="control-label" for="id">ID </label>
+                          <input id="id" class="form-control" name="id" type="text" value="<?php if(isset($id)): ?><?=$id;?><?php endif; ?>">
+                        </div>
+                      </div>
                       <div class="row">
                         <div class="item col-xs-offset-1 col-md-3 col-sm-3 col-xs-12">
                           <label class="control-label" for="po_no">Cust PO No. </label>
-                          <input id="po_no" class="form-control" name="po_no" type="text">
+                          <input id="po_no" class="form-control" name="po_no" type="text" value="<?php if(isset($po_no)): ?><?=$po_no;?><?php endif; ?>">
                         </div>
                         <div class="item col-md-3 col-sm-3 col-xs-12">
                           <label class="control-label" for="po_date">PO Date </label>
                           <fieldset>
-                            <input type="text" class="form-control has-feedback-left" id="po_date" name="po_date" aria-describedby="inputSuccess2Status2">
+                            <input type="text" class="form-control has-feedback-left" id="po_date" name="po_date" aria-describedby="inputSuccess2Status2" value="<?php if(isset($po_date)): ?><?=$po_date;?><?php endif; ?>">
                             <span class="fa fa-calendar-o form-control-feedback left" aria-hidden="true" style="top: 25px;"></span>
                             <span id="inputSuccess2Status2" class="sr-only">(success)</span>
                           </fieldset>
@@ -68,29 +73,29 @@
                       <div class="row">
                         <div class="item col-xs-offset-1 col-md-3 col-sm-3 col-xs-12">
                           <label class="control-label" for="project_name">Project Name </label>
-                          <input id="project_name" class="form-control" name="project_name" type="text">
+                          <input id="project_name" class="form-control" name="project_name" type="text" value="<?php if(isset($project_name)): ?><?=$project_name;?><?php endif; ?>">
                         </div>
                         <div class="item col-md-3 col-sm-3 col-xs-12">
                           <label class="control-label" for="customer">Customer </label>
                           <div>
-                          <input id="customer" class="form-control" name="customer" type="text">
+                          <input id="customer" class="form-control" name="customer" type="text" value="<?php if(isset($customer)): ?><?=$customer;?><?php endif; ?>">
                           </div>
                         </div>
                       </div>
                       <div class="row">
                         <div class="item col-xs-offset-1 col-md-4 col-sm-4 col-xs-12">
                           <label class="control-label" for="area">Area </label>
-                          <input id="area" class="form-control" name="area" type="text">
+                          <input id="area" class="form-control" name="area" type="text" value="<?php if(isset($area)): ?><?=$area;?><?php endif; ?>">
                         </div>
                       </div>
                       <div class="row">
                         <div class="item col-xs-offset-1 col-md-2 col-sm-2 col-xs-12">
                           <label class="control-label" for="site_code">Site Code </label>
-                          <input id="site_code" class="form-control" name="site_code" type="text">
+                          <input id="site_code" class="form-control" name="site_code" type="text" value="<?php if(isset($site_code)): ?><?=$site_code;?><?php endif; ?>">
                         </div>
                         <div class="item col-xs-offset-1 col-md-3 col-sm-3 col-xs-12">
                           <label class="control-label" for="site_name">Site Name </label>
-                          <input id="site_name" class="form-control" name="site_name" type="text">
+                          <input id="site_name" class="form-control" name="site_name" type="text" value="<?php if(isset($site_name)): ?><?=$site_name;?><?php endif; ?>">
                         </div>
                       </div>
                       
@@ -105,6 +110,44 @@
                       </div>
                       
                     </form>
+
+                    <div class="ln_solid col-md-12 col-sm-12 col-xs-12"></div>
+
+                    <div class="row">
+                      <div class="col-sm-12">
+                        <div class="card-box table-responsive">
+
+                          <table id="datatable-keytable" class="table table-striped table-bordered">
+                            <thead>
+                              <tr>
+                                <th>ID</th>
+                                <th>PO No.</th>
+                                <th>Customer</th>
+                                <th>Project</th>
+                                <th>PO date</th>
+                                <th>Site</th>
+                                <th>PO value</th>
+                                <th></th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <?php foreach($polist as $po): ?> 
+                              <tr>
+                                <td><?=$po->id; ?></td>
+                                <td><?=$po->po_no; ?></td>
+                                <td><?=$po->customer; ?></td>
+                                <td><?=$po->project_name; ?></td>
+                                <td><?=$po->po_date; ?></td>
+                                <td><?=$po->site_code; ?> - <?=$po->site_name; ?></td>
+                                <td class="po_value"><?=$po->po_value; ?></td>
+                                <td><button id="view" type="submit" class="btn btn-success">View</button></td>
+                              </tr>
+                              <?php endforeach; ?>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -141,6 +184,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="<?=base_url();?>assets/vendors/moment/min/moment.min.js"></script>
     <script src="<?=base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- jQuery-Autocomplete -->
+    <script src="<?=base_url();?>assets/vendors/jQuery-Autocomplete/jquery.autocomplete.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?=base_url();?>assets/build/js/custom.min.js"></script>
     <script type="text/javascript">
@@ -161,6 +206,20 @@
         $('#po_value').number( true, 2 );
         $('#vat').number( true, 2 );
         $('#unit_price').number( true, 2 );
+
+        var customer_list = [<?php if(!is_null($customer_list)): ?><?php foreach($customer_list as $customer): ?> 
+          { value: '<?=$customer->customer;?>', data: '<?=$customer->customer;?>' },<?php endforeach; ?><?php endif; ?>
+        ];
+        $('#customer').autocomplete({
+          lookup: customer_list,
+        });
+        var project_list = [<?php if(!is_null($project_list)): ?><?php foreach($project_list as $project): ?> 
+          { value: '<?=$project->project_name;?>', data: '<?=$project->project_name;?>' },<?php endforeach; ?><?php endif; ?>
+        ];
+
+        $('#project_name').autocomplete({
+          lookup: project_list,
+        });
       }); 
     </script>
   

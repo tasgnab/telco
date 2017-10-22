@@ -203,6 +203,8 @@
     <!-- bootstrap-daterangepicker -->
     <script src="<?=base_url();?>assets/vendors/moment/min/moment.min.js"></script>
     <script src="<?=base_url();?>assets/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <!-- jQuery-Autocomplete -->
+    <script src="<?=base_url();?>assets/vendors/jQuery-Autocomplete/jquery.autocomplete.min.js"></script>
     <!-- Custom Theme Scripts -->
     <script src="<?=base_url();?>assets/build/js/custom.min.js"></script>
     <script type="text/javascript">
@@ -248,6 +250,20 @@
         $('#po_value').number( true, 2 );
         $('#vat').number( true, 2 );
         $('#unit_price').number( true, 2 );
+
+        var customer_list = [<?php if(!is_null($customer_list)): ?><?php foreach($customer_list as $customer): ?> 
+          { value: '<?=$customer->customer;?>', data: '<?=$customer->customer;?>' },<?php endforeach; ?><?php endif; ?>
+        ];
+        $('#customer').autocomplete({
+          lookup: customer_list,
+        });
+        var project_list = [<?php if(!is_null($project_list)): ?><?php foreach($project_list as $project): ?> 
+          { value: '<?=$project->project_name;?>', data: '<?=$project->project_name;?>' },<?php endforeach; ?><?php endif; ?>
+        ];
+
+        $('#project_name').autocomplete({
+          lookup: project_list,
+        });
       }); 
     </script>
 	

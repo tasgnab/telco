@@ -5,7 +5,6 @@ class M_Po extends MY_Model {
     }
 
     function insertPO($data){
-    	//$data = appendCreatedModifiedBy($data);
 		$this->db->insert('purchase_order',$data);
 		return $this->db->insert_id();
 	}
@@ -14,13 +13,17 @@ class M_Po extends MY_Model {
 		$this->db->select('*');
 		$this->db->from('purchase_order');
 		$this->db->where('is_deleted','N');
-		$this->db->order_by('id', 'asc');
+		$this->db->order_by('created_date', 'desc');
+		$this->db->limit(20, 0);
 		return $this->db->get()->result();
 	}
 
 	function searchPO($data){
 		$this->db->select('*');
 		$this->db->from('purchase_order');
+		if (array_key_exists('id', $data)){
+			$this->db->where('id', $data['id']);
+		}
 		if (array_key_exists('po_no', $data)){
 			$this->db->where('po_no', $data['po_no']);
 		}
@@ -43,7 +46,27 @@ class M_Po extends MY_Model {
 		if (array_key_exists('site_name', $data)){
 			$this->db->like('site_name', $data['site_name']);
 		}
+		$this->db->where('is_deleted','N');
 		$this->db->order_by('id', 'asc');
 		return $this->db->get()->result();
 	}
+
+	function getCustomer(){
+		$this->db->distinct();
+		$this->db->select('customer');
+		$this->db->from('purchase_order');
+		$this->db->where('is_deleted','N');
+		$this->db->order_by('customer', 'asc');
+		return $this->db->get()->result();
+	}
+
+	function getProject(){
+		$this->db->distinct();
+		$this->db->select('project_name');
+		$this->db->from('purchase_order');
+		$this->db->where('is_deleted','N');
+		$this->db->order_by('project_name', 'asc');
+		return $this->db->get()->result();
+	}
+
 }

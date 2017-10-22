@@ -22,6 +22,7 @@ class Po extends MY_Controller {
 		$this->load->view('dashboard/po_new');
 	}
 	public function add(){
+		$this->load->model('M_Po');
 		if($this->input->post()){
 			$data['po_no'] = $this->input->post('po_no');
 			$tmp = new DateTime($this->input->post('po_date'));
@@ -40,23 +41,24 @@ class Po extends MY_Controller {
 			$data['end_date'] = $tmp->format('Y-m-d');
 			$data['work_order'] = $this->input->post('work_order');
 			$data['po_value'] = (float) $data['unit_price'] * $data['quantity'];
-			
-			$this->load->model('M_Po');
+						
 			$this->M_Po->insertPO($data);
 			$this->session->set_flashdata('message','New Purchase Order Inserted');
+			$this->load->view('dashboard/po_new');
+		} else {
+			$data['customer_list'] = $this->M_Po->getCustomer();
+			$data['project_list'] = $this->M_Po->getProject();
+			$this->load->view('dashboard/po_new',$data);
 		}
-		
-		$this->load->view('dashboard/po_new');
 	}
-
-	public function list_po(){
-		$this->load->model('M_Po');
-		$data['polist'] = $this->M_Po->allPO();
-		$this->load->view('dashboard/po_list',$data);
-	}
-
 	public function search_po(){
+		$this->load->model('M_Po');
+		$data['customer_list'] = $this->M_Po->getCustomer();
+		$data['project_list'] = $this->M_Po->getProject();
 		if($this->input->post()){
+			if ($this->input->post('id')){
+				$data['id'] = $this->input->post('id');
+			}
 			if ($this->input->post('po_no')){
 				$data['po_no'] = $this->input->post('po_no');
 			}
@@ -64,9 +66,13 @@ class Po extends MY_Controller {
 				$tmp = $this->input->post('po_date');
 				$po_date = explode('-',$tmp);
 				$po_date_min = new DateTime(trim($po_date[0]));
-				$data['po_date_min'] = $po_date_min->format('Y-m-d');
 				$po_date_max = new DateTime(trim($po_date[1]));
-				$data['po_date_max'] = $po_date_max->format('Y-m-d');		
+				if ($po_date_min != $po_date_max){
+					$data['po_date_min'] = $po_date_min->format('Y-m-d');
+					$data['po_date_max'] = $po_date_max->format('Y-m-d');
+				}
+				
+				$data['po_date'] = $tmp;		
 			}
 			if ($this->input->post('project_name')){
 				$data['project_name'] = $this->input->post('project_name');
@@ -84,12 +90,11 @@ class Po extends MY_Controller {
 			if($this->input->post('site_name')){
 				$data['site_name'] = $this->input->post('site_name');
 			}
-			$this->load->model('M_Po');
-			log_message('debug', print_r($data, TRUE));
 			$data['polist'] = $this->M_Po->searchPO($data);
-			$this->load->view('dashboard/po_list',$data);
+			$this->load->view('dashboard/po_search',$data);
 		} else {
-			$this->load->view('dashboard/po_search');
+			$data['polist'] = $this->M_Po->allPO();
+			$this->load->view('dashboard/po_search',$data);
 		}
 	}
 }
